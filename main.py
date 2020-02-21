@@ -1,24 +1,33 @@
+import sys
+import time
+
 START = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="URN:CREATE_BP_AND_BO_DRKK">\n<soapenv:Header/>\n<soapenv:Body>\n'
-FINAL = '</soapenv:Body>\n</soapenv:Envelope>\n'
+FINAL = '\n</soapenv:Body>\n</soapenv:Envelope>\n'
+
+try:
+    file = sys.argv[1]
+    print("Выбран " + file)
+except IndexError:
+    file = 'file.xml'
+    print("По умолчанию file.xml")
 
 
 def drop_each(string, num):
     return string.replace(string[num], ' ')
 
 
-def drop_dash(file='file.xml'):
+def drop_dash(file):
     with open(file, 'r', encoding="UTF-8") as f:
         a = f.read()
         for i in range(len(a)):
             if a[i] == '-':
                 a = drop_each(a, i)
-                print("del")
-    print(a)
-    with open('file.xml', 'w', encoding="UTF-8") as f:
+    with open(file, 'w', encoding="UTF-8") as f:
         f.write(a)
+    print("Черточки удалены")
 
 
-def to_soapui(file='file.xml'):
+def to_soapui(file):
     with open(file, 'r', encoding="UTF-8") as f:
         a = f.readlines()[3:]
         b = START
@@ -28,5 +37,9 @@ def to_soapui(file='file.xml'):
     with open(file, 'w', encoding="UTF-8") as f:
         f.write(b)
 
+    print("Формат сделан для SOAP UI")
 
-to_soapui()
+
+drop_dash(file)
+to_soapui(file)
+time.sleep(5)
