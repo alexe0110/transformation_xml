@@ -5,15 +5,13 @@ def drop_each(string, num):
     return string.replace(string[num], ' ')
 
 
-with open('file.xml', encoding="UTF-8") as f:
+with open('file.xml', 'r', encoding="UTF-8") as f:
     a = f.read()
-    # print(a)
     for i in range(len(a)):
-        # if a[i] == '<':
-        #     t = 1
-        # if a[i] == '>':
-        #     t = 0
         if a[i] == '-':
             a = drop_each(a, i)
             print("del")
-    print(a)
+
+print(a)
+with open('file.xml', 'w', encoding="UTF-8") as f:
+    f.write(a)
