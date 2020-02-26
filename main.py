@@ -20,7 +20,7 @@ def drop_dash(file):
     with open(file, 'r', encoding="UTF-8") as f:
         a = f.read()
         for i in range(len(a)):
-            if a[i] == '-':
+            if a[i] == '-' and a[i - 1] == '\n':
                 a = drop_each(a, i)
     with open(file, 'w', encoding="UTF-8") as f:
         f.write(a)
