@@ -12,8 +12,8 @@ except IndexError:
     print("По умолчанию file.xml")
 
 
-def drop_each(string, num):
-    return string.replace(string[num], ' ')
+def drop_symbol(string, num):
+    return string[:num] + ' ' + string[num + 1:]
 
 
 def drop_dash(file):
@@ -21,7 +21,7 @@ def drop_dash(file):
         a = f.read()
         for i in range(len(a)):
             if a[i] == '-' and a[i - 1] == '\n':
-                a = drop_each(a, i)
+                a = drop_symbol(a, i)
     with open(file, 'w', encoding="UTF-8") as f:
         f.write(a)
     print("Черточки удалены")
@@ -39,7 +39,10 @@ def to_soapui(file):
 
     print("Формат сделан для SOAP UI")
 
+def main():
+    drop_dash(file)
+    to_soapui(file)
+    time.sleep(5)
 
-drop_dash(file)
-to_soapui(file)
-time.sleep(5)
+if __name__ == '__main__':
+    main()
